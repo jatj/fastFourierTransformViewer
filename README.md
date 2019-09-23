@@ -18,8 +18,8 @@ FFT emplea números complejos para poder computar la transformada de Fourier, de
 ## Demo
 
 El proyecto consta de dos demos los cuales demuestran como funciona la transformada rápida de Fourier (FFT) de una manera interactiva:
-- Drawer: Consta de una interfaz gráfica en la que se puede dibujar una señal a procesar con FFT, la cual se verá reflejada en la gráfica de las frecuencias obtenidas por el procesamiento de FFT.
-- Listener: Consta de un visualizador de audio, en el cual se puede reproducir un audio el cual es analizado por FFT en tiempo real y se grafican las frecuencias.
+- Drawer: Consta de una interfaz gráfica en la que se puede dibujar una señal a procesar con FFT, la cual se verá reflejada en la gráfica de las frecuencias obtenidas por el procesamiento de FFT. Haz click [aquí](https://fftdemo.web.app/drawer.html) para ver el demo de FFT drawer.
+- Listener: Consta de un visualizador de audio, en el cual se puede reproducir un audio el cual es analizado por FFT en tiempo real y se grafican las frecuencias. Haz click [aquí](https://fftdemo.web.app) para ver el demo de FFT listener.
 
 ## Implementación:
 El proyecto fue desarrollado para ser visualizado como una aplicación web. Para esto se utilizo [P5js](https://p5js.org/) para poder visualizar las graficas. Se utilizo javascript y la implementación de FFT que se encuentra [implementada](https://p5js.org/reference/#/p5.FFT) dentro de P5 js para el analisis de audio del demo _Listener_. Para el demo _Drawer_ se utilizó la implementación de FFT en el siguiente [repositorio](https://p5js.org/reference/#/p5.FFT).
