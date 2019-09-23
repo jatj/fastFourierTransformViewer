@@ -1,0 +1,22 @@
+{
+  "name": "fastfouriertransform",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fft.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jatj/fastFourierTransformViewer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jatj/fastFourierTransformViewer/issues"
+  },
+  "homepage": "https://github.com/jatj/fastFourierTransformViewer#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
