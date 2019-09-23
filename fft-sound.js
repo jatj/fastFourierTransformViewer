@@ -44,7 +44,7 @@ function draw() {
   for (var i = 0; i < spectrum.length; i++) {
     var amp = map(spectrum[i], 0, 255, 0, maxVal);
     var y = map(amp, 0, maxVal, height, 0);
-    fill(map(i, 0, maxVal, 0, 360), maxVal, amp);
+    fill(map(i, 0, resolution, 0, 360), maxVal, amp);
     noStroke();
     rect(i * w, y, w, height - y);
   }

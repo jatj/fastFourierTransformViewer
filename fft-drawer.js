@@ -1,12 +1,14 @@
-var resolution = 256;
+var resolution = 128;
 var size = 512;
 var maxVal = size - 1;
 var w = size / resolution;
 var ys = new Array(resolution).fill(maxVal);
 var ysFFT = new Array(resolution).fill(new ComplexNumber({ re: 0 }));
+var pulses = new Array(resolution);
 var clicking = false;
 var shiftting = false;
 var playSound = false;
+var initialFreq = 220;
 var pulse;
 
 function loadSin() {
@@ -39,9 +41,13 @@ function loadSquare() {
 
 function loadTriangle() {
   for (var i = 0; i < resolution; i++) {
-    ys[i] = map(Math.asin(Math.cos(map(i, 0, resolution, 0, 4 * Math.PI))), -1.5, 1.5, 0, maxVal);
+    ys[i] = map(Math.asin(Math.cos(map(i, 0, resolution, 0, 2 * Math.PI))), -1.5, 1.5, 0, maxVal);
     ysFFT[i] = new ComplexNumber({ re: ys[i] });
   }
+}
+
+function indexToFreq(i) {
+  return i * (initialFreq / resolution / 2.);
 }
 
 function setup() {
@@ -95,9 +101,12 @@ function setup() {
     .size(60, 20);
 
 
-  pulse = new p5.Pulse();
-  pulse.amp(0.5);
-  pulse.freq(220);
+  for (var i = 0; i < resolution; i++) {
+    var freq = indexToFreq(i);
+    pulses[i] = new p5.Pulse(freq);
+    pulses[i].amp(0);
+    pulses[i].start();
+  }
 }
 
 function mousePressed() {
@@ -116,9 +125,13 @@ function draw() {
   }
 
   if (playSound) {
-    pulse.start();
+    for (var i = 0; i < resolution; i++) {
+      pulses[i].start();
+    }
   } else {
-    pulse.stop(0);
+    for (var i = 0; i < resolution; i++) {
+      pulses[i].stop(0);
+    }
   }
 
   if (clicking && mouseX < size) {
@@ -127,7 +140,7 @@ function draw() {
   }
   ellipse(mouseX, mouseY, 5, 5);
 
-  for (var i = 0; i < ys.length; i++) {
+  for (var i = 0; i < resolution; i++) {
     var y = ys[i];
     fill(map(i, 0, maxVal, 0, 360), maxVal, maxVal);
     noStroke();
@@ -136,13 +149,13 @@ function draw() {
 
   var ys_ = fastFourierTransform(ysFFT);
 
-  freq = constrain(maxVal * ys[0] / resolution, 1.4013e-40, size * size / resolution);
-  pulse.freq(freq);
-
-  for (var i = 0; i < ys.length; i++) {
-    var y = map(ys_[i].re, -maxVal, maxVal, maxVal, 0);
-    fill(map(i, 0, maxVal, 0, 360), maxVal, maxVal);
+  for (var i = 0; i < resolution; i++) {
+    var y = map(ys_[i].getRadius(), 0, maxVal, maxVal, 0);
+    fill(map(i, 0, resolution, 0, 360), maxVal, maxVal);
     noStroke();
     rect(i * w + size, y, w, height - y);
+    
+    var amp = map(y, maxVal, 0, 0, 1);
+    pulses[i].amp(amp);
   }
 }
